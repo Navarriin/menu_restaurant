@@ -3,10 +3,12 @@ package com.navarro.Restaurant.service;
 import com.navarro.Restaurant.dtos.MenuDTO;
 import com.navarro.Restaurant.model.Menu;
 import com.navarro.Restaurant.repository.MenuRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -21,8 +23,10 @@ public class MenuService {
                 .collect(Collectors.toList());
     }
 
-    public void getOne(Long id){
-
+    public Menu getOne(Long id){
+        Optional<Menu> menuOptional = repository.findById(id);
+        if(menuOptional.isPresent()) return menuOptional.get();
+        throw new EntityNotFoundException();
     }
 
     public Menu createFood(MenuDTO body){
