@@ -25,8 +25,9 @@ public class MenuService {
 
     }
 
-    public Menu createFood(Menu body){
-        return repository.save(body);
+    public Menu createFood(MenuDTO body){
+        Menu menu = new Menu(body);
+        return repository.save(menu);
     }
 
     public void updateFood(Long id, Menu body){

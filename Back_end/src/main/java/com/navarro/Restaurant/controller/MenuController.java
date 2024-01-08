@@ -5,10 +5,7 @@ import com.navarro.Restaurant.model.Menu;
 import com.navarro.Restaurant.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class MenuController {
     }
 
     @PostMapping
-    public ResponseEntity create(Menu body) {
+    public ResponseEntity create(@RequestBody MenuDTO body) {
         Menu menu = menuService.createFood(body);
         return ResponseEntity.ok().body(menu);
     }

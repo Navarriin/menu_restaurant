@@ -1,5 +1,6 @@
 package com.navarro.Restaurant.model;
 
+import com.navarro.Restaurant.dtos.MenuDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +25,14 @@ public class Menu {
         this.image = image;
         this.description = description;
         this.value = value;
+    }
+
+    public Menu(MenuDTO body) {
+        this.id = body.id();
+        this.name = body.name();
+        this.image = body.image();
+        this.description = body.description();
+        this.value = body.value();
     }
 
     public Long getId() {
