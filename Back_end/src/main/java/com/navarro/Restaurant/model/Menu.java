@@ -15,15 +15,13 @@ public class Menu {
     private Long id;
     private String name;
     private String image;
-    private String description;
     private BigDecimal value;
 
     public Menu(){}
-    public Menu(Long id, String name, String image, String description, BigDecimal value) {
+    public Menu(Long id, String name, String image, BigDecimal value) {
         this.id = id;
         this.name = name;
         this.image = image;
-        this.description = description;
         this.value = value;
     }
 
@@ -31,7 +29,6 @@ public class Menu {
         this.id = body.id();
         this.name = body.name();
         this.image = body.image();
-        this.description = body.description();
         this.value = body.value();
     }
 
@@ -57,14 +54,6 @@ public class Menu {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public BigDecimal getValue() {

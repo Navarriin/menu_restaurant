@@ -8,10 +8,9 @@ public record MenuDTO(
          Long id,
          String name,
          String image,
-         String description,
          BigDecimal value
 ) {
     public MenuDTO (Menu menu) {
-        this(menu.getId(), menu.getName(), menu.getImage(), menu.getDescription(), menu.getValue());
+        this(menu.getId(), menu.getName(), menu.getImage(), menu.getValue());
     }
 }

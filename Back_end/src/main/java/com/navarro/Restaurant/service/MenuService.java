@@ -40,7 +40,6 @@ public class MenuService {
         if(optional.isPresent()){
             Menu menu = optional.get();
             menu.setName(body.name());
-            menu.setDescription(body.description());
             menu.setImage(body.image());
             menu.setValue(body.value());
             repository.save(menu);
