@@ -8,8 +8,8 @@ interface CardProps {
 
 export function Card({ name, image, price }: CardProps) {
   return (
-    <div>
-      <img src={image} alt="" />
+    <div className="card">
+      <img src={image} />
       <h2>{name}</h2>
       <p>
         <b>Valor:</b>
