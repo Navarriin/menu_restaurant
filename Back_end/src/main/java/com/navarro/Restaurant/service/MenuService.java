@@ -20,6 +20,7 @@ public class MenuService {
     public List<MenuDTO> getList(){
         return repository.findAll()
                 .stream().map(MenuDTO::new)
+                .sorted(((obj1, obj2) -> Long.compare(obj1.id(), obj2.id())))
                 .collect(Collectors.toList());
     }
 
@@ -34,11 +35,21 @@ public class MenuService {
         return repository.save(menu);
     }
 
-    public void updateFood(Long id, Menu body){
-
+    public Menu updateFood(Long id, MenuDTO body){
+        Optional<Menu> optional = repository.findById(id);
+        if(optional.isPresent()){
+            Menu menu = optional.get();
+            menu.setName(body.name());
+            menu.setDescription(body.description());
+            menu.setImage(body.image());
+            menu.setValue(body.value());
+            repository.save(menu);
+            return menu;
+        }
+        throw new EntityNotFoundException();
     }
 
     public void deleteFood(Long id){
-
+        repository.deleteById(id);
     }
 }

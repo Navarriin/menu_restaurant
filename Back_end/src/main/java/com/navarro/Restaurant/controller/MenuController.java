@@ -22,14 +22,26 @@ public class MenuController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getById(@PathVariable Long id) {
+    public ResponseEntity<Menu> getById(@PathVariable Long id) {
         Menu menu = menuService.getOne(id);
         return ResponseEntity.ok().body(menu);
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody MenuDTO body) {
+    public ResponseEntity<Menu> create(@RequestBody MenuDTO body) {
         Menu menu = menuService.createFood(body);
         return ResponseEntity.ok().body(menu);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Menu> update(@PathVariable Long id, @RequestBody MenuDTO body) {
+        Menu menu = menuService.updateFood(id, body);
+        return ResponseEntity.ok().body(menu);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        menuService.deleteFood(id);
+        return ResponseEntity.ok().build();
     }
 }
