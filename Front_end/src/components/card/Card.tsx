@@ -15,6 +15,10 @@ export function Card({ name, image, price }: CardProps) {
         <b>Valor: </b>
         {price}
       </p>
+      <div className="btns">
+        <button className="style edit">Editar</button>
+        <button className="style delete">Deletar</button>
+      </div>
     </div>
   );
 }

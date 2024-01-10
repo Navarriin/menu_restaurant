@@ -49,7 +49,7 @@ export function CreateModal({ closeModal }: ModalProps) {
     <div className="modal-overlay">
       <div className="modal-body">
         <h2>Cadastre um novo item no cardápio</h2>
-        <button onClick={closeModal} className="btn-primary">
+        <button onClick={closeModal} className="btn btn-primary">
           Voltar
         </button>
         <form className="input-container">
@@ -57,7 +57,7 @@ export function CreateModal({ closeModal }: ModalProps) {
           <Input label="price" value={value} updateValue={setValue} />
           <Input label="image" value={image} updateValue={setImage} />
         </form>
-        <button onClick={submit} className="btn-secondary">
+        <button onClick={submit} className="btn btn-secondary">
           {isLoading ? "Postando..." : "postar"}
         </button>
       </div>
