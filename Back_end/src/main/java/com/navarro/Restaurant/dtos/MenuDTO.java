@@ -11,6 +11,6 @@ public record MenuDTO(
          BigDecimal value
 ) {
     public MenuDTO (Menu menu) {
-        this(menu.getId(), menu.getName(), menu.getImage(), menu.getValue());
+        this(menu.getId() ,menu.getName(), menu.getImage(), menu.getValue());
     }
 }

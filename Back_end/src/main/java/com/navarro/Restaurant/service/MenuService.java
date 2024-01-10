@@ -7,6 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,13 +15,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class MenuService {
+
     @Autowired
     private MenuRepository repository;
 
     public List<MenuDTO> getList(){
-        return repository.findAll()
-                .stream().map(MenuDTO::new)
-                .sorted(((obj1, obj2) -> Long.compare(obj1.id(), obj2.id())))
+        return repository.findAll().stream()
+                .map(MenuDTO::new)
+                .sorted(Comparator.comparingLong(MenuDTO::id))
                 .collect(Collectors.toList());
     }
 
@@ -31,7 +33,10 @@ public class MenuService {
     }
 
     public Menu createFood(MenuDTO body){
-        Menu menu = new Menu(body);
+        Menu menu = new Menu();
+        menu.setName(body.name());
+        menu.setImage(body.image());
+        menu.setValue(body.value());
         return repository.save(menu);
     }
 
@@ -42,8 +47,7 @@ public class MenuService {
             menu.setName(body.name());
             menu.setImage(body.image());
             menu.setValue(body.value());
-            repository.save(menu);
-            return menu;
+            return repository.save(menu);
         }
         throw new EntityNotFoundException();
     }
