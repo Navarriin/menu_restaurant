@@ -47,7 +47,7 @@ public class MenuService {
             menu.setName(body.name());
             menu.setImage(body.image());
             menu.setValue(body.value());
-            return repository.save(menu);
+            return menu;
         }
         throw new EntityNotFoundException();
     }

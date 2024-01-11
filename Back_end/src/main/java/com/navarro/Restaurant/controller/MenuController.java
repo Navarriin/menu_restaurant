@@ -3,6 +3,7 @@ package com.navarro.Restaurant.controller;
 import com.navarro.Restaurant.dtos.MenuDTO;
 import com.navarro.Restaurant.model.Menu;
 import com.navarro.Restaurant.service.MenuService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,23 +27,27 @@ public class MenuController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
-    public ResponseEntity<Menu> getById(@PathVariable Long id) {
+    public ResponseEntity<MenuDTO> getById(@PathVariable Long id) {
         Menu menu = menuService.getOne(id);
-        return ResponseEntity.ok().body(menu);
+        MenuDTO menuDTO = new MenuDTO(menu);
+        return ResponseEntity.ok().body(menuDTO);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
-    public ResponseEntity<Menu> create(@RequestBody MenuDTO body) {
+    public ResponseEntity<MenuDTO> create(@RequestBody MenuDTO body) {
         Menu menu = menuService.createFood(body);
-        return ResponseEntity.ok().body(menu);
+        MenuDTO menuDTO = new MenuDTO(menu);
+        return ResponseEntity.ok().body(menuDTO);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/{id}")
-    public ResponseEntity<Menu> update(@PathVariable Long id, @RequestBody MenuDTO body) {
+    @Transactional
+    public ResponseEntity<MenuDTO> update(@PathVariable Long id, @RequestBody MenuDTO body) {
         Menu menu = menuService.updateFood(id, body);
-        return ResponseEntity.ok().body(menu);
+        MenuDTO menuDTO = new MenuDTO(menu);
+        return ResponseEntity.ok().body(menuDTO);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
