@@ -14,24 +14,3 @@
   width: 250px;
   height: 180px;
 }
-
-.card .btns {
-  display: flex;
-  gap: 0.4rem;
-  margin: 0.4rem;
-  border: none;
-  border-radius: 12px;
-}
-
-.card .btns .style {
-  border: none;
-  background-color: #0275d8;
-  color: white;
-  border-radius: 8px;
-  padding: 0.3rem 0.6rem;
-  cursor: pointer;
-}
-
-.card .btns .delete {
-  background-color: red;
-}
