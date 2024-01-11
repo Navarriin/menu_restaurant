@@ -53,6 +53,12 @@
   font-size: 18px;
 }
 
+.modal-overlay .modal-body .buttons {
+  display: flex;
+  gap: 0.8rem;
+  margin: 0 auto;
+}
+
 .modal-overlay .modal-body .btn-primary {
   position: initial;
   width: 10%;
