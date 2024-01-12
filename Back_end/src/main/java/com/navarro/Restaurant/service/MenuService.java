@@ -3,14 +3,13 @@ package com.navarro.Restaurant.service;
 import com.navarro.Restaurant.dtos.MenuDTO;
 import com.navarro.Restaurant.model.Menu;
 import com.navarro.Restaurant.repository.MenuRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -20,24 +19,29 @@ public class MenuService {
     private MenuRepository repository;
 
     public List<MenuDTO> getList(){
-        return repository.findAll().stream()
-                .map(MenuDTO::new)
-                .sorted(Comparator.comparingLong(MenuDTO::id))
-                .collect(Collectors.toList());
+        List<MenuDTO> menuDTOList = repository.findAll()
+                .stream().map(MenuDTO::new)
+                .sorted(Comparator.comparingLong(MenuDTO::id)).toList();
+        if(menuDTOList.isEmpty()) throw new EmptyStackException();
+        return menuDTOList;
     }
 
     public Menu getOne(Long id){
         Optional<Menu> menuOptional = repository.findById(id);
         if(menuOptional.isPresent()) return menuOptional.get();
-        throw new EntityNotFoundException();
+        throw new NullPointerException();
     }
 
     public Menu createFood(MenuDTO body){
         Menu menu = new Menu();
-        menu.setName(body.name());
-        menu.setImage(body.image());
-        menu.setValue(body.value());
-        return repository.save(menu);
+        try {
+            menu.setName(body.name());
+            menu.setImage(body.image());
+            menu.setValue(body.value());
+            return repository.save(menu);
+        } catch (Exception err){
+            throw new NullPointerException();
+        }
     }
 
     public Menu updateFood(Long id, MenuDTO body){
@@ -49,10 +53,16 @@ public class MenuService {
             menu.setValue(body.value());
             return menu;
         }
-        throw new EntityNotFoundException();
+        throw new NullPointerException();
     }
 
     public void deleteFood(Long id){
-        repository.deleteById(id);
+        Optional<Menu> optionalMenuDTO = repository.findById(id);
+        if(optionalMenuDTO.isPresent()) {
+            Menu menu = optionalMenuDTO.get();
+            repository.delete(menu);
+        } else {
+            throw new NullPointerException();
+        }
     }
 }
