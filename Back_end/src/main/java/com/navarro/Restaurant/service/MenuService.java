@@ -3,13 +3,12 @@ package com.navarro.Restaurant.service;
 import com.navarro.Restaurant.dtos.MenuDTO;
 import com.navarro.Restaurant.model.Menu;
 import com.navarro.Restaurant.repository.MenuRepository;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.EmptyStackException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -32,15 +31,16 @@ public class MenuService {
         throw new NullPointerException();
     }
 
-    public Menu createFood(MenuDTO body){
+    public Menu createFood(MenuDTO body) {
         Menu menu = new Menu();
         try {
             menu.setName(body.name());
             menu.setImage(body.image());
             menu.setValue(body.value());
             return repository.save(menu);
-        } catch (Exception err){
-            throw new NullPointerException();
+        } catch (ConstraintViolationException err){
+            throw new ConstraintViolationException(
+                    (Set<? extends ConstraintViolation<?>>) err);
         }
     }
 
@@ -58,11 +58,8 @@ public class MenuService {
 
     public void deleteFood(Long id){
         Optional<Menu> optionalMenuDTO = repository.findById(id);
-        if(optionalMenuDTO.isPresent()) {
-            Menu menu = optionalMenuDTO.get();
-            repository.delete(menu);
-        } else {
-            throw new NullPointerException();
-        }
+        if(!optionalMenuDTO.isPresent()) throw new NullPointerException();
+        Menu menu = optionalMenuDTO.get();
+        repository.delete(menu);
     }
 }
