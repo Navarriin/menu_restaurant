@@ -3,8 +3,6 @@ package com.navarro.Restaurant.service;
 import com.navarro.Restaurant.dtos.MenuDTO;
 import com.navarro.Restaurant.model.Menu;
 import com.navarro.Restaurant.repository.MenuRepository;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +19,14 @@ public class MenuService {
         List<MenuDTO> menuDTOList = repository.findAll()
                 .stream().map(MenuDTO::new)
                 .sorted(Comparator.comparingLong(MenuDTO::id)).toList();
-        if(menuDTOList.isEmpty()) throw new EmptyStackException();
+        if(menuDTOList.isEmpty()) throw new NullPointerException();
         return menuDTOList;
     }
 
     public Menu getOne(Long id){
         Optional<Menu> menuOptional = repository.findById(id);
         if(menuOptional.isPresent()) return menuOptional.get();
-        throw new NullPointerException();
+        throw new NoSuchElementException();
     }
 
     public Menu createFood(MenuDTO body) {
@@ -38,9 +36,8 @@ public class MenuService {
             menu.setImage(body.image());
             menu.setValue(body.value());
             return repository.save(menu);
-        } catch (ConstraintViolationException err){
-            throw new ConstraintViolationException(
-                    (Set<? extends ConstraintViolation<?>>) err);
+        } catch (IllegalArgumentException err){
+            throw new IllegalArgumentException();
         }
     }
 
@@ -53,13 +50,15 @@ public class MenuService {
             menu.setValue(body.value());
             return menu;
         }
-        throw new NullPointerException();
+        throw new NoSuchElementException();
     }
 
-    public void deleteFood(Long id){
+    public void deleteFood(Long id) {
         Optional<Menu> optionalMenuDTO = repository.findById(id);
-        if(!optionalMenuDTO.isPresent()) throw new NullPointerException();
-        Menu menu = optionalMenuDTO.get();
-        repository.delete(menu);
+        if(optionalMenuDTO.isPresent()) {
+            Menu menu = optionalMenuDTO.get();
+            repository.delete(menu);
+        }
+        throw new NoSuchElementException();
     }
 }

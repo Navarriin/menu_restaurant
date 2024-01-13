@@ -6,9 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class EntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -16,11 +18,6 @@ public class EntityExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<String> NullPointerException(NullPointerException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This field is null!");
-    }
-
-    @ExceptionHandler(EmptyStackException.class)
-    public ResponseEntity<String> EmptyStackException(EmptyStackException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("List empty!");
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
@@ -31,6 +28,11 @@ public class EntityExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<String> ConstraintViolationException(ConstraintViolationException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid field!");
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<String> NoSuchElementException(NoSuchElementException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("This id does not exist!");
     }
 
 }
