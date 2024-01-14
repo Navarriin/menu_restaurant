@@ -20,8 +20,8 @@ public class MenuController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
-    public ResponseEntity<List<MenuDTO>> getAll() {
-        List<MenuDTO> menuList = menuService.getList();
+    public ResponseEntity<List<Menu>> getAll() {
+        List<Menu> menuList = menuService.getList();
         return ResponseEntity.ok().body(menuList);
     }
 

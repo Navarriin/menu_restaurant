@@ -21,6 +21,12 @@ public class Menu {
 
     public Menu(){}
 
+    public Menu(String name, String image, BigDecimal value){
+        this.name = name;
+        this.image = image;
+        this.value = value;
+    }
+
     public Menu(Long id, String name, String image, BigDecimal value) {
         this.id = id;
         this.name = name;

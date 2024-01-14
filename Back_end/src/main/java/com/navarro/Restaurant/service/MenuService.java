@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -15,12 +16,11 @@ public class MenuService {
     @Autowired
     private MenuRepository repository;
 
-    public List<MenuDTO> getList(){
-        List<MenuDTO> menuDTOList = repository.findAll()
-                .stream().map(MenuDTO::new)
-                .sorted(Comparator.comparingLong(MenuDTO::id)).toList();
-        if(menuDTOList.isEmpty()) throw new NullPointerException();
-        return menuDTOList;
+    public List<Menu> getList(){
+        return repository.findAll().stream()
+                .filter(menu -> menu.getId() != null)
+                .sorted(Comparator.comparingLong(Menu::getId))
+                .collect(Collectors.toList());
     }
 
     public Menu getOne(Long id){
