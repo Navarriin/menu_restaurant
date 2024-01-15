@@ -54,11 +54,8 @@ public class MenuService {
     }
 
     public void deleteFood(Long id) {
-        Optional<Menu> optionalMenuDTO = repository.findById(id);
-        if(optionalMenuDTO.isPresent()) {
-            Menu menu = optionalMenuDTO.get();
-            repository.delete(menu);
-        }
-        throw new NoSuchElementException();
+        Menu menu = repository.findById(id)
+                .orElseThrow(NoSuchElementException::new);
+        repository.delete(menu);
     }
 }
