@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static com.navarro.Restaurant.utils.MockMenus.*;
@@ -34,7 +35,7 @@ class MenuServiceTest {
 
     @Test
     void getListSuccess() {
-        when(menuRepository.findAll()).thenReturn(mockMenuList());
+        when(this.menuRepository.findAll()).thenReturn(mockMenuList());
 
         List<Menu> menuList = this.menuService.getList();
 
@@ -48,9 +49,9 @@ class MenuServiceTest {
     @Test
     void getOneSuccess() {
         Menu menu = mockMenuEntity();
-        when(menuRepository.findById(ID)).thenReturn(Optional.of(menu));
+        when(this.menuRepository.findById(ID)).thenReturn(Optional.of(menu));
 
-        Menu menuOne = menuService.getOne(ID);
+        Menu menuOne = this.menuService.getOne(ID);
 
         assertNotNull(menuOne);
         assertEquals(menuOne.getId(), ID);
@@ -60,7 +61,20 @@ class MenuServiceTest {
     }
 
     @Test
-    void createFood() {
+    void getOneError() {
+        when(this.menuRepository.findById(ID)).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> {
+            this.menuService.getOne(ID);
+        });
+    }
+
+    @Test
+    void createFoodSuccess() {
+    }
+
+    @Test
+    void createFoodError() {
     }
 
     @Test
@@ -68,12 +82,25 @@ class MenuServiceTest {
     }
 
     @Test
+    void updateError() {
+    }
+
+    @Test
     void deleteFoodSuccess() {
         Menu menu = mockMenuEntity();
-        when(menuRepository.findById(ID)).thenReturn(Optional.of(menu));
+        when(this.menuRepository.findById(ID)).thenReturn(Optional.of(menu));
 
-        menuService.deleteFood(ID);
+        this.menuService.deleteFood(ID);
 
-        Mockito.verify(menuRepository, times(1)).delete(menu);
+        Mockito.verify(this.menuRepository, times(1)).delete(menu);
+    }
+
+    @Test
+    void deleteFoodError() {
+        when(this.menuRepository.findById(ID)).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> {
+            this.menuService.deleteFood(ID);
+        });
     }
 }
