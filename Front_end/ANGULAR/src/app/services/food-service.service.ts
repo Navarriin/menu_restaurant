@@ -7,7 +7,7 @@ import { FoodData } from '../interface/foodInterface';
   providedIn: 'root',
 })
 export class FoodServiceService {
-  readonly API_FOOD: string = 'http://localhost:8080';
+  private readonly API_FOOD: string = 'http://localhost:8080';
   constructor(private http: HttpClient) {}
 
   getAllFoods(): Observable<FoodData[]> {
