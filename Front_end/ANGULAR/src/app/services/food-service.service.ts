@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, first } from 'rxjs';
+import { FoodData } from '../interface/foodInterface';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,27 @@ export class FoodServiceService {
   readonly API_FOOD: string = 'http://localhost:8080';
   constructor(private http: HttpClient) {}
 
-  getAllFoods(): Observable<any> {
-    return this.http.get<any>(`${this.API_FOOD}/food`).pipe(first());
+  getAllFoods(): Observable<FoodData[]> {
+    return this.http.get<FoodData[]>(`${this.API_FOOD}/food`).pipe(first());
+  }
+
+  getFoodById(id: number): Observable<FoodData> {
+    return this.http.get<FoodData>(`${this.API_FOOD}/food/${id}`).pipe(first());
+  }
+
+  postFood(body: any): Observable<FoodData> {
+    return this.http
+      .post<FoodData>(`${this.API_FOOD}/food`, body)
+      .pipe(first());
+  }
+
+  updateFood(body: any): Observable<FoodData> {
+    return this.http
+      .put<FoodData>(`${this.API_FOOD}/food/${body.id}`, body)
+      .pipe(first());
+  }
+
+  deleteFood(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.API_FOOD}/food/${id}`).pipe(first());
   }
 }
