@@ -1,10 +1,3 @@
-<ul>
-  @for (food of foods; track $index) {
-  <li> {{ food.name }} </li>
-  <img height="100px" width="100px" src="{{ food.image }}" alt="imagem da comida ">
-  <li>{{ food.value }}</li>
-  <div>
-    <button (click)="deleteFoodById(food.id!)">Deletar</button>
-  </div>
-  }
-</ul>
+<main>
+  <app-card-list />
+</main>
