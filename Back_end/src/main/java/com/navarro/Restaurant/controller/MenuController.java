@@ -52,8 +52,8 @@ public class MenuController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         menuService.deleteFood(id);
-        return ResponseEntity.ok().body("Item deleted successfully!");
+        return ResponseEntity.ok().build();
     }
 }

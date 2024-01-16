@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, first } from 'rxjs';
+import { Observable, first, tap } from 'rxjs';
 import { FoodData } from '../interface/foodInterface';
 
 @Injectable({
@@ -18,13 +18,13 @@ export class FoodServiceService {
     return this.http.get<FoodData>(`${this.API_FOOD}/food/${id}`).pipe(first());
   }
 
-  postFood(body: any): Observable<FoodData> {
+  postFood(body: FoodData): Observable<FoodData> {
     return this.http
       .post<FoodData>(`${this.API_FOOD}/food`, body)
       .pipe(first());
   }
 
-  updateFood(body: any): Observable<FoodData> {
+  updateFood(body: FoodData): Observable<FoodData> {
     return this.http
       .put<FoodData>(`${this.API_FOOD}/food/${body.id}`, body)
       .pipe(first());

@@ -6,11 +6,18 @@ import { FoodServiceService } from '../../services/food-service.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-card-list',
   standalone: true,
-  imports: [CardComponent, MatCardModule, MatToolbarModule, CommonModule],
+  imports: [
+    CardComponent,
+    MatCardModule,
+    MatToolbarModule,
+    CommonModule,
+    MatButtonModule,
+  ],
   templateUrl: './card-list.component.html',
   styleUrl: './card-list.component.scss',
 })

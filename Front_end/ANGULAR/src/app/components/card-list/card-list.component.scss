@@ -7,10 +7,8 @@ mat-card {
 
   mat-card-header {
     mat-toolbar {
-      span {
-        margin: auto;
-        text-transform: uppercase;
-      }
+      display: flex;
+      justify-content: space-between;
     }
   }
 
