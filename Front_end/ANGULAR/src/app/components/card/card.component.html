@@ -1,16 +1,16 @@
-<mat-card class="example-card width">
+<mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>{{ body.name }}</mat-card-title>
   </mat-card-header>
-  <img mat-card-image src="{{ body.image }}" alt=" image of food ">
+  <img mat-card-image src="{{ body.image }}" alt="Image of food">
   <mat-card-content>
     <p>
       Valor: R${{ body.value }}
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="deleteFood(body.id!)">Excluir</button>
-    <button mat-button (click)="updateFood(body)">Atualizar</button>
+    <button mat-stroked-button color="warn" (click)="deleteFood(body.id!)">Excluir</button>
+    <button mat-stroked-button color="primary" (click)="updateFood(body)">Atualizar</button>
   </mat-card-actions>
 </mat-card>
