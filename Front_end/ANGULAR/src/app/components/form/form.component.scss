@@ -1,0 +1,33 @@
+mat-card {
+  width: 84%;
+  margin: 2rem auto;
+
+  mat-card-header {
+    mat-toolbar {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+.mat-stepper-vertical {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+.input {
+  width: 500px;
+}
+
+.form {
+  display: flex;
+  gap: 1rem;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+}
