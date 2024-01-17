@@ -23,8 +23,10 @@ public class MockMenus {
     }
     public static List<Menu> mockMenuList () {
         Menu menu = mockMenuEntity();
+        Menu menuTwo = mockMenuEntity();
         List<Menu> menuList = new ArrayList<>();
         menuList.add(menu);
+        menuList.add(menuTwo);
         return menuList;
     }
 

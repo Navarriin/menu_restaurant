@@ -8,17 +8,17 @@
   <mat-card-content>
 
     <mat-stepper orientation="vertical" #stepper>
-      <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup">
+      <mat-step [stepControl]="formGroup">
+        <form [formGroup]="formGroup">
           <ng-template matStepLabel>Preencha os campos</ng-template>
           <div class="form">
             <mat-form-field>
               <mat-label>Nome da comida</mat-label>
-              <input type="text" matInput placeholder="Macarrão" formControlName="firstCtrl">
+              <input type="text" matInput placeholder="Macarrão" formControlName="name">
             </mat-form-field>
             <mat-form-field class="input">
               <mat-label>Endereço da imagem</mat-label>
-              <input type="text" matInput placeholder="Link" formControlName="firstCtrl">
+              <input type="text" matInput placeholder="Link" formControlName="image">
             </mat-form-field>
           </div>
           <div>
@@ -26,16 +26,16 @@
           </div>
         </form>
       </mat-step>
-      <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
+      <mat-step [stepControl]="formGroup">
+        <form [formGroup]="formGroup">
           <ng-template matStepLabel>Preencha o ultimo campo</ng-template>
           <mat-form-field>
             <mat-label>Valor</mat-label>
-            <input type="text" matInput formControlName="secondCtrl" placeholder="22">
+            <input type="number" matInput formControlName="value" placeholder="22">
           </mat-form-field>
           <div class="btns">
             <button mat-stroked-button matStepperPrevious>Voltar</button>
-            <button mat-stroked-button color="primary">Enviar</button>
+            <button mat-stroked-button color="primary" (click)="submit()">Enviar</button>
           </div>
         </form>
       </mat-step>

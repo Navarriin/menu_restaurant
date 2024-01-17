@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { FoodData } from '../../interface/foodInterface';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -16,7 +16,7 @@ export class CardComponent {
   @Output() delete = new EventEmitter();
   @Output() update = new EventEmitter();
 
-  deleteFood(id: number): void {
+  deleteFood(id: string): void {
     this.delete.emit(id);
   }
 

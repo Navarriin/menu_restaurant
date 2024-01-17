@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,8 +15,7 @@ import java.util.Optional;
 
 import static com.navarro.Restaurant.utils.MockMenus.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class MenuServiceTest {
 
@@ -71,10 +69,15 @@ class MenuServiceTest {
 
     @Test
     void createFoodSuccess() {
-    }
+        Menu menu = mockMenuEntity();
+        when(this.menuRepository.save(any(Menu.class))).thenReturn(menu);
 
-    @Test
-    void createFoodError() {
+        Menu createMenu = menuService.createFood(mockMenuDTO());
+
+        verify(this.menuRepository, times(1)).save(any(Menu.class));
+        assertEquals(menu.getName(), createMenu.getName());
+        assertEquals(menu.getImage(), createMenu.getImage());
+        assertEquals(menu.getValue(), createMenu.getValue());
     }
 
     @Test
@@ -92,7 +95,7 @@ class MenuServiceTest {
 
         this.menuService.deleteFood(ID);
 
-        Mockito.verify(this.menuRepository, times(1)).delete(menu);
+        verify(this.menuRepository, times(1)).delete(menu);
     }
 
     @Test

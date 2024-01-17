@@ -19,7 +19,7 @@ public class MenuService {
     public List<Menu> getList(){
         return repository.findAll().stream()
                 .filter(menu -> menu.getId() != null)
-                .sorted(Comparator.comparingLong(Menu::getId))
+                .sorted(Comparator.comparing(Menu::getId))
                 .collect(Collectors.toList());
     }
 

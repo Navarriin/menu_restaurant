@@ -12,6 +12,10 @@ export const routes: Routes = [
     component: FormFoodComponent,
   },
   {
+    path: 'edit/:id',
+    component: FormFoodComponent,
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },
