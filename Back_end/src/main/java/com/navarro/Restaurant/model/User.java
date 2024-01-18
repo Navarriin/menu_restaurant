@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Person {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,9 +22,9 @@ public class Person {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "person")
     private List<Menu> foods = new ArrayList<>();
 
-    public Person() {}
+    public User() {}
 
-    public Person(Long id, String name, String password, List<Menu> foods) {
+    public User(Long id, String name, String password, List<Menu> foods) {
         this.id = id;
         this.name = name;
         this.password = password;

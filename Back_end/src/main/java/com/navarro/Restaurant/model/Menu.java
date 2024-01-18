@@ -24,7 +24,7 @@ public class Menu {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Person person;
+    private User user;
 
     public Menu(){}
 
