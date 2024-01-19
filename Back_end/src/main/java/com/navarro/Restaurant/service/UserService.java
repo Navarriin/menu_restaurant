@@ -15,16 +15,22 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public List<User> getAllPersons() {
-        return repository.findAll();
+    public List<User> getAllUsers(){
+        return repository.findAll().stream().toList();
     }
 
-    public UserDTO getPersonByID(Long id) {
-        Optional<User> personById = repository.findById(id);
-        if(personById.isPresent()){
-            User user = personById.get();
-            return new UserDTO(user);
+    public User getUserByID(Long id) {
+        Optional<User> userById = repository.findById(id);
+        if(userById.isPresent()){
+            return userById.get();
         }
         throw new NullPointerException();
+    }
+
+    public User createUser(UserDTO body) {
+        User user = new User();
+        user.setName(body.name());
+        user.setPassword(body.password());
+        return repository.save(user);
     }
 }

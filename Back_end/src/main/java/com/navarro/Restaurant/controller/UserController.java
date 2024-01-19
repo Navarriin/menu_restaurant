@@ -5,26 +5,35 @@ import com.navarro.Restaurant.model.User;
 import com.navarro.Restaurant.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("user")
+@RestController
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public ResponseEntity<List<User>> getAll() {
-        List<User> allPersons = userService.getAllPersons();
-        return ResponseEntity.ok().body(allPersons);
+        List<User> allUsers = userService.getAllUsers();
+        return ResponseEntity.ok().body(allUsers);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getAll(Long id) {
-        UserDTO personById = userService.getPersonByID(id);
-        return ResponseEntity.ok().body(personById);
+    public ResponseEntity<UserDTO> getById(Long id) {
+        User userById = userService.getUserByID(id);
+        return ResponseEntity.ok().body(new UserDTO(userById));
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PostMapping
+    public ResponseEntity<UserDTO> getById(@RequestBody UserDTO body) {
+        User userById = userService.createUser(body);
+        return ResponseEntity.ok().body(new UserDTO(userById));
     }
 }
