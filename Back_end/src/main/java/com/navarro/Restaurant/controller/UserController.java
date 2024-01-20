@@ -45,4 +45,11 @@ public class UserController {
         User user = userService.updateUser(id, body);
         return ResponseEntity.ok().body(new UserDTO(user));
     }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+        userService.deleteUser(id);
+        return ResponseEntity.ok().build();
+    }
 }

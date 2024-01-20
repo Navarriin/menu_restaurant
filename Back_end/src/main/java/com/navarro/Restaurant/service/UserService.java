@@ -45,4 +45,10 @@ public class UserService {
         }
         throw new NoSuchElementException();
     }
+
+    public void deleteUser(Long id) {
+        User user = repository.findById(id)
+                .orElseThrow(NullPointerException::new);
+        repository.delete(user);
+    }
 }
