@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -32,5 +33,16 @@ public class UserService {
         user.setName(body.name());
         user.setPassword(body.password());
         return repository.save(user);
+    }
+
+    public User updateUser(Long id, UserDTO body) {
+        Optional<User> userOptional = repository.findById(id);
+        if(userOptional.isPresent()) {
+            User getUser = userOptional.get();
+            getUser.setName(body.name());
+            getUser.setPassword(body.password());
+            return getUser;
+        }
+        throw new NoSuchElementException();
     }
 }

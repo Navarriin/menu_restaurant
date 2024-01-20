@@ -5,13 +5,14 @@ import com.navarro.Restaurant.model.User;
 
 import java.util.List;
 
-public record UserDTO(
+public record UserDTO<foods>(
         Long id,
         String name,
-        String password
-        //List<Menu> foods
+        String password,
+        List<Menu> foods
 ) {
     public UserDTO(User user){
-        this(user.getId(), user.getName(), user.getPassword()); //user.getFoods());
+        this(user.getId(), user.getName(), user.getPassword(), user.getFoods());
     }
+
 }
