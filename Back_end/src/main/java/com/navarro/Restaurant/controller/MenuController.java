@@ -24,6 +24,13 @@ public class MenuController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/{id}")
+    public ResponseEntity<Menu> getFoodById(@PathVariable Long id) {
+        Menu menuById = menuService.geById(id);
+        return ResponseEntity.ok().body(menuById);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<Menu> create(@RequestBody Menu body) {
         Menu menuList = menuService.create(body);

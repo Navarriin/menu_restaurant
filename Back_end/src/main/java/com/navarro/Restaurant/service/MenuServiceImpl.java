@@ -19,6 +19,15 @@ public class MenuServiceImpl implements MenuService{
     }
 
     @Override
+    public Menu geById(Long id) {
+        Optional<Menu> menuOptional = menuRepository.findById(id);
+        if(menuOptional.isPresent()) {
+        return menuOptional.get();
+        }
+        throw new NullPointerException();
+    }
+
+    @Override
     public Menu create(Menu menu) {
         return menuRepository.save(menu);
     }
