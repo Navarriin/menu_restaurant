@@ -5,9 +5,11 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { CardComponent } from '../card/card.component';
+import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FoodServiceService } from '../../services/food-service.service';
+import { DialogAnimationsExampleDialog } from '../dialog-animations-example-dialog/dialog-animations-example-dialog.component';
 
 @Component({
   selector: 'app-card-list',
@@ -25,7 +27,11 @@ import { FoodServiceService } from '../../services/food-service.service';
 export class CardListComponent {
   protected foods = new Observable<FoodData[]>();
 
-  constructor(private api: FoodServiceService, private route: Router) {
+  constructor(
+    private api: FoodServiceService,
+    private route: Router,
+    public dialog: MatDialog
+  ) {
     this.getAll();
   }
 
@@ -39,6 +45,14 @@ export class CardListComponent {
 
   updateFood(body: FoodData): void {
     this.route.navigate(['edit', body.id]);
+  }
+
+  openDialog(id: string): void {
+    const dialogRef = this.dialog.open(DialogAnimationsExampleDialog);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.deleteFood(id);
+    });
   }
 
   deleteFood(id: string): void {

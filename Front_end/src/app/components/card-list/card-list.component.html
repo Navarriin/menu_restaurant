@@ -7,7 +7,7 @@
   </mat-card-header>
   <mat-card-content>
     @for (food of foods | async; track $index) {
-    <app-card [body]="food" (delete)="deleteFood($event)" (update)="updateFood($event)" />
+    <app-card [body]="food" (delete)="openDialog($event)" (update)="updateFood($event)" />
     }
   </mat-card-content>
 </mat-card>

@@ -62,7 +62,7 @@ export class FormComponent {
             Validators.maxLength(100),
           ]),
           image: new FormControl(data.image),
-          value: new FormControl(data.value, [
+          price: new FormControl(data.price, [
             Validators.required,
             Validators.min(0),
           ]),
@@ -75,7 +75,7 @@ export class FormComponent {
           Validators.maxLength(100),
         ]),
         image: new FormControl(''),
-        value: new FormControl(0, [Validators.required, Validators.min(0)]),
+        price: new FormControl(0, [Validators.required, Validators.min(0)]),
       });
     }
   }

@@ -1,0 +1,10 @@
+<div class="card">
+  <h1 mat-dialog-title>Deseja deletar?</h1>
+  <div mat-dialog-content>
+    Esta comida sera deletada permanentemente!
+  </div>
+  <div mat-dialog-actions>
+    <button mat-stroked-button mat-dialog-close (click)="afterClose(false)" color="warn">Não</button>
+    <button mat-stroked-button cdkFocusInitial (click)="afterClose(true)" color="primary">Sim</button>
+  </div>
+</div>
