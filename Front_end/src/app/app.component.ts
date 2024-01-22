@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { FoodServiceService } from './services/food-service.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
@@ -13,8 +12,4 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 })
 export class AppComponent {
   title = 'ANGULAR';
-
-  constructor(private apiFood: FoodServiceService) {
-    this.apiFood.getAllFoods().subscribe((data) => console.log(data));
-  }
 }
