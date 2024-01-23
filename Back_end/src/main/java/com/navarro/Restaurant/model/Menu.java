@@ -1,5 +1,6 @@
 package com.navarro.Restaurant.model;
 
+import com.navarro.Restaurant.dto.MenuDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

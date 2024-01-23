@@ -1,5 +1,6 @@
 package com.navarro.Restaurant.controller;
 
+import com.navarro.Restaurant.dto.MenuDTO;
 import com.navarro.Restaurant.model.Menu;
 import com.navarro.Restaurant.service.MenuService;
 import jakarta.transaction.Transactional;
@@ -18,30 +19,29 @@ public class MenuController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
-    public ResponseEntity<List<Menu>> listALl() {
-        List<Menu> menuList = menuService.listAll();
+    public ResponseEntity<List<MenuDTO>> listALl() {
+        List<MenuDTO> menuList = menuService.listAll();
         return ResponseEntity.ok().body(menuList);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
-    public ResponseEntity<Menu> getFoodById(@PathVariable Long id) {
-        Menu menuById = menuService.geById(id);
+    public ResponseEntity<MenuDTO> getFoodById(@PathVariable Long id) {
+        MenuDTO menuById = menuService.geById(id);
         return ResponseEntity.ok().body(menuById);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
-    public ResponseEntity<Menu> create(@RequestBody Menu body) {
-        Menu menuList = menuService.create(body);
+    public ResponseEntity<MenuDTO> create(@RequestBody MenuDTO body) {
+        MenuDTO menuList = menuService.create(body);
         return ResponseEntity.ok().body(menuList);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/{id}")
-    @Transactional
-    public ResponseEntity<Menu> update(@PathVariable Long id, @RequestBody Menu body) {
-        Menu menu = menuService.update(id, body);
+    public ResponseEntity<MenuDTO> update(@PathVariable Long id, @RequestBody MenuDTO body) {
+        MenuDTO menu = menuService.update(id, body);
         return ResponseEntity.ok().body(menu);
     }
 
