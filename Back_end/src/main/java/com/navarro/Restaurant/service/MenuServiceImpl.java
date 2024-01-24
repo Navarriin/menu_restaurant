@@ -2,7 +2,6 @@ package com.navarro.Restaurant.service;
 
 import com.navarro.Restaurant.dto.MenuDTO;
 import com.navarro.Restaurant.dto.mapper.MenuMapper;
-import com.navarro.Restaurant.model.Menu;
 import com.navarro.Restaurant.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,10 +15,12 @@ public class MenuServiceImpl implements MenuService{
 
     private final MenuRepository menuRepository;
     private final MenuMapper mapper;
+
     @Override
     public List<MenuDTO> listAll() {
         return menuRepository.findAll()
                 .stream().map(mapper::toDTO)
+                .sorted((objectOne, objectTwo) -> objectOne.id().compareTo(objectTwo.id()))
                 .collect(Collectors.toList());
     }
 

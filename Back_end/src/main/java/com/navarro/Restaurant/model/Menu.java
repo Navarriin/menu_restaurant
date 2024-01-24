@@ -1,6 +1,5 @@
 package com.navarro.Restaurant.model;
 
-import com.navarro.Restaurant.dto.MenuDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,11 +9,11 @@ import lombok.Setter;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "MENU")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "MENU")
 public class Menu {
 
     @Id

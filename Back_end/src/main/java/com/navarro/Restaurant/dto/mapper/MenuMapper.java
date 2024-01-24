@@ -1,5 +1,4 @@
 package com.navarro.Restaurant.dto.mapper;
-
 import com.navarro.Restaurant.dto.MenuDTO;
 import com.navarro.Restaurant.model.Menu;
 import org.springframework.stereotype.Component;
@@ -25,5 +24,4 @@ public class MenuMapper {
 
         return menu;
     }
-
 }

@@ -6,6 +6,7 @@ import com.navarro.Restaurant.model.Menu;
 import java.util.List;
 
 public interface MenuService {
+
     List<MenuDTO> listAll();
     MenuDTO geById(Long id);
     MenuDTO create(MenuDTO menu);

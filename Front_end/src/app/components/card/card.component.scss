@@ -12,10 +12,7 @@ mat-card {
   }
 
   mat-card-header {
-    gap: 2rem;
-    mat-card-title {
-      width: 100%;
-    }
+    justify-content: start;
   }
 
   mat-card-content {
