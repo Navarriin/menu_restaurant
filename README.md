@@ -31,22 +31,17 @@ code .
 npm install
 ```
 
-### 4. Conecte com o PostgreSql
-```
-Configs ja prontas em resoucers
-```
-
-### 5. Abra a pasta BackJava no IntelliJ
+### 4. Abra a pasta BackJava no IntelliJ
 ```
 cd Back_end
 ```
 
-### 6. Suba o Back end (na porta /localhost:8080)
+### 5. Suba o Back end (na porta /localhost:8080)
 ```
 clique na setinha verde do IntelliJ
 ```
 
-### 7. Suba o Front end
+### 6. Suba o Front end
 ```
 ng serve
 ```
