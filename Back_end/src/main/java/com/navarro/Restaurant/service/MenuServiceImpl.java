@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,7 +30,7 @@ public class MenuServiceImpl implements MenuService{
     public MenuDTO geById(Long id) {
         return menuRepository.findById(id)
                 .map(mapper::toDTO)
-                .orElseThrow(NullPointerException::new);
+                .orElseThrow(NoSuchElementException::new);
     }
 
     @Override
@@ -44,12 +46,12 @@ public class MenuServiceImpl implements MenuService{
                     data.setImage(body.image());
                     data.setPrice(body.price());
                     return mapper.toDTO(menuRepository.save(data));
-                }).orElseThrow(NullPointerException::new);
+                }).orElseThrow(NoSuchElementException::new);
     }
 
     @Override
     public void delete(Long id) {
         menuRepository.delete(menuRepository.findById(id)
-                .orElseThrow(NullPointerException::new));
+                .orElseThrow(NoSuchElementException::new));
     }
 }

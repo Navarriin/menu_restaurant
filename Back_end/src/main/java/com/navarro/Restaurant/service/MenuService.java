@@ -1,9 +1,9 @@
 package com.navarro.Restaurant.service;
 
 import com.navarro.Restaurant.dto.MenuDTO;
-import com.navarro.Restaurant.model.Menu;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MenuService {
 
