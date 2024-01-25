@@ -12,14 +12,14 @@ import java.util.NoSuchElementException;
 public class ApplicationControllerAdivice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<DefaultError> responseEntityNoSuchElementException(NoSuchElementException err) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new DefaultError(HttpStatus.BAD_REQUEST.value(), "Id not found!"));
+    public ResponseEntity<DefaultError> handleNoSuchElementException(NoSuchElementException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new DefaultError(HttpStatus.NOT_FOUND.value(), "Resource not found"));
     }
 
-    @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<DefaultError> responseEntityNullPointerException(NullPointerException err) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new DefaultError(HttpStatus.NOT_FOUND.value(), "Element is null!"));
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<DefaultError> handleException(Exception ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new DefaultError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Server Error"));
     }
 }
