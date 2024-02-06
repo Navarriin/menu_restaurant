@@ -3,7 +3,6 @@ package com.navarro.Restaurant.controller;
 import com.navarro.Restaurant.dto.MenuDTO;
 import com.navarro.Restaurant.service.MenuService;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +10,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("food")
-@RequiredArgsConstructor
 public class MenuController {
 
     private final MenuService menuService;
+
+    public MenuController(MenuService menuService) {
+        this.menuService = menuService;
+    }
 
     @GetMapping
     @CrossOrigin(origins = "*", allowedHeaders = "*")

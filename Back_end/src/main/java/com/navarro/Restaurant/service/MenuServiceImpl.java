@@ -3,20 +3,22 @@ package com.navarro.Restaurant.service;
 import com.navarro.Restaurant.dto.MenuDTO;
 import com.navarro.Restaurant.dto.mapper.MenuMapper;
 import com.navarro.Restaurant.repository.MenuRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class MenuServiceImpl implements MenuService{
 
-    private final MenuRepository menuRepository;
     private final MenuMapper mapper;
+    private final MenuRepository menuRepository;
+
+    public MenuServiceImpl(MenuMapper mapper, MenuRepository menuRepository) {
+        this.mapper = mapper;
+        this.menuRepository = menuRepository;
+    }
 
     @Override
     public List<MenuDTO> listAll() {
