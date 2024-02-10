@@ -5,8 +5,10 @@ import com.navarro.Restaurant.dto.mapper.MenuMapper;
 import com.navarro.Restaurant.repository.MenuRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,12 +26,11 @@ public class MenuServiceImpl implements MenuService{
     public List<MenuDTO> listAll() {
         return menuRepository.findAll()
                 .stream().map(mapper::toDTO)
-                .sorted((objectOne, objectTwo) -> objectOne.id().compareTo(objectTwo.id()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public MenuDTO geById(Long id) {
+    public MenuDTO getById(Long id) {
         return menuRepository.findById(id)
                 .map(mapper::toDTO)
                 .orElseThrow(NoSuchElementException::new);
