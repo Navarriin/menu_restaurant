@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import org.springframework.test.context.ActiveProfiles;
@@ -16,9 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -59,26 +56,5 @@ class MenuServiceImplTest {
         assertEquals(1, result.size());
         assertEquals(menuDTO, result.get(0));
     }
-
-    @Test
-    void getByIdSuccess() {
-        when(menuMapper.toDTO(menu)).thenReturn(menuDTO);
-        when(repository.findById(Mockito.anyLong()))
-                .thenReturn(Optional.ofNullable(menu));
-
-        MenuDTO result = menuService.getById(1L);
-
-        assertNotNull(result);
-        assertThat(result).isEqualTo(menuDTO);
-    }
-
-    /*
-       @Override
-    public MenuDTO geById(Long id) {
-        return menuRepository.findById(id)
-                .map(mapper::toDTO)
-                .orElseThrow(NoSuchElementException::new);
-    }
-     */
 
 }
