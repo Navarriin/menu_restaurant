@@ -3,6 +3,7 @@ package com.navarro.Restaurant.controller;
 import com.navarro.Restaurant.dto.MenuDTO;
 import com.navarro.Restaurant.service.MenuService;
 import jakarta.transaction.Transactional;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,7 @@ public class MenuController {
 
     @GetMapping("/{id}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public ResponseEntity<MenuDTO> getFoodById(@PathVariable Long id) {
+    public ResponseEntity<MenuDTO> getFoodById(@PathVariable Long id) throws ChangeSetPersister.NotFoundException {
         MenuDTO menuById = menuService.getById(id);
         return ResponseEntity.ok().body(menuById);
     }

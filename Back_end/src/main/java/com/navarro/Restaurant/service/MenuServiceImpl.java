@@ -2,7 +2,9 @@ package com.navarro.Restaurant.service;
 
 import com.navarro.Restaurant.dto.MenuDTO;
 import com.navarro.Restaurant.dto.mapper.MenuMapper;
+import com.navarro.Restaurant.exceptions.MenuNotFoundException;
 import com.navarro.Restaurant.repository.MenuRepository;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -30,10 +32,10 @@ public class MenuServiceImpl implements MenuService{
     }
 
     @Override
-    public MenuDTO getById(Long id) {
+    public MenuDTO getById(Long id) throws ChangeSetPersister.NotFoundException {
         return menuRepository.findById(id)
                 .map(mapper::toDTO)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new MenuNotFoundException("Menu not found for id: " + id));
     }
 
     @Override
