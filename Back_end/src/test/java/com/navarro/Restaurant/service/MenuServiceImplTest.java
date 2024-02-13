@@ -10,12 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-
-import org.mockito.Mockito;
+import org.mockito.exceptions.misusing.PotentialStubbingProblem;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.MockBeans;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
@@ -76,17 +72,27 @@ class MenuServiceImplTest {
     void getByIdError() {
         when(repository.findById(anyLong())).thenReturn(Optional.empty());
 
-        var result = assertThrows(MenuNotFoundException.class, () -> menuService.getById(1L));
+        var result = assertThrows(MenuNotFoundException.class, () -> menuService.getById(anyLong()));
         assertEquals("Menu not found for id: 1", result.getMessage());
     }
 
-    /*
-      @Override
-    public MenuDTO getById(Long id) {
-        return menuRepository.findById(id)
-                .map(mapper::toDTO)
-                .orElseThrow(NoSuchElementException::new);
+    @Test
+    void createFoodSuccess() {
+        when(menuMapper.toDTO(menu)).thenReturn(menuDTO);
+        when(repository.save(menuMapper.toEntity(menuDTO))).thenReturn(menu);
+
+        var result = assertDoesNotThrow(() -> menuService.create(menuDTO));
+
+        assertNotNull(result);
+        assertEquals(result, menuDTO);
     }
-     */
+
+    @Test
+    void createFoodError() {
+        when(menuMapper.toDTO(menu)).thenReturn(menuDTO);
+        when(repository.save(menuMapper.toEntity(menuDTO))).thenReturn(null);
+
+        assertThrows(PotentialStubbingProblem.class ,() -> menuService.create(null));
+    }
 
 }
