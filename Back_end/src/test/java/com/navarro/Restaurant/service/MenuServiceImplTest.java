@@ -70,9 +70,9 @@ class MenuServiceImplTest {
     }
     @Test
     void getByIdError() {
-        when(repository.findById(anyLong())).thenReturn(Optional.empty());
+        when(repository.findById(menu.getId())).thenReturn(Optional.empty());
 
-        var result = assertThrows(MenuNotFoundException.class, () -> menuService.getById(anyLong()));
+        var result = assertThrows(MenuNotFoundException.class, () -> menuService.getById(menu.getId()));
         assertEquals("Menu not found for id: 1", result.getMessage());
     }
 
