@@ -10,17 +10,21 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.exceptions.misusing.PotentialStubbingProblem;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
@@ -93,6 +97,22 @@ class MenuServiceImplTest {
         when(repository.save(menuMapper.toEntity(menuDTO))).thenReturn(null);
 
         assertThrows(PotentialStubbingProblem.class ,() -> menuService.create(null));
+    }
+
+    @Test
+    void deleteFoodSuccess() {
+        when(repository.findById(menuDTO.id())).thenReturn(Optional.ofNullable(menu));
+
+        assertDoesNotThrow(() -> menuService.delete(menuDTO.id()));
+        verify(repository, times(1)).delete(menu);
+    }
+
+    @Test
+    void deleteFoodError() {
+        when(repository.findById(anyLong())).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> menuService.delete(1L));
+        verify(repository, Mockito.never()).delete(Mockito.any());
     }
 
 }
