@@ -100,6 +100,33 @@ class MenuServiceImplTest {
     }
 
     @Test
+    void updateFoodSuccess() {
+        when(repository.save(any())).thenReturn(menu);
+        when(menuMapper.toDTO(menu)).thenReturn(menuDTO);
+        when(repository.findById(menuDTO.id())).thenReturn(Optional.ofNullable(menu));
+
+        var result = assertDoesNotThrow(() -> menuService.update(menuDTO.id(), menuDTO));
+
+        verify(repository, times(1)).findById(menuDTO.id());
+        verify(repository, times(1))
+                .save(argThat(savedMenu ->
+                        savedMenu.getName().equals(menuDTO.name()) &&
+                                savedMenu.getImage().equals(menuDTO.image()) &&
+                                Objects.equals(savedMenu.getPrice(), menuDTO.price())
+                ));
+
+    }
+
+    @Test
+    void updateFoodError() {
+        when(repository.findById(menuDTO.id())).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> menuService.update(menuDTO.id(), menuDTO));
+        verify(repository, times(1)).findById(menuDTO.id());
+        verify(repository, never()).save(any());
+    }
+
+    @Test
     void deleteFoodSuccess() {
         when(repository.findById(menuDTO.id())).thenReturn(Optional.ofNullable(menu));
 
