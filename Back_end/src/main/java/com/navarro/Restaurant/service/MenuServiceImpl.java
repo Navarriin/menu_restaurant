@@ -4,13 +4,10 @@ import com.navarro.Restaurant.dto.MenuDTO;
 import com.navarro.Restaurant.dto.mapper.MenuMapper;
 import com.navarro.Restaurant.exceptions.MenuNotFoundException;
 import com.navarro.Restaurant.repository.MenuRepository;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +29,7 @@ public class MenuServiceImpl implements MenuService{
     }
 
     @Override
-    public MenuDTO getById(Long id) throws ChangeSetPersister.NotFoundException {
+    public MenuDTO getById(Long id) {
         return menuRepository.findById(id)
                 .map(mapper::toDTO)
                 .orElseThrow(() -> new MenuNotFoundException("Menu not found for id: " + id));
@@ -45,8 +42,7 @@ public class MenuServiceImpl implements MenuService{
 
     @Override
     public MenuDTO update(Long id, MenuDTO body) {
-        return menuRepository.findById(id)
-                .map(data -> {
+        return menuRepository.findById(id).map(data -> {
                     data.setName(body.name());
                     data.setImage(body.image());
                     data.setPrice(body.price());

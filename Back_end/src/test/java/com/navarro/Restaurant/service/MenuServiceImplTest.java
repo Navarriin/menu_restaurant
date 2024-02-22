@@ -105,14 +105,13 @@ class MenuServiceImplTest {
         when(menuMapper.toDTO(menu)).thenReturn(menuDTO);
         when(repository.findById(menuDTO.id())).thenReturn(Optional.ofNullable(menu));
 
-        var result = assertDoesNotThrow(() -> menuService.update(menuDTO.id(), menuDTO));
-
+        assertDoesNotThrow(() -> menuService.update(menuDTO.id(), menuDTO));
         verify(repository, times(1)).findById(menuDTO.id());
         verify(repository, times(1))
                 .save(argThat(savedMenu ->
                         savedMenu.getName().equals(menuDTO.name()) &&
-                                savedMenu.getImage().equals(menuDTO.image()) &&
-                                Objects.equals(savedMenu.getPrice(), menuDTO.price())
+                        savedMenu.getImage().equals(menuDTO.image()) &&
+                        Objects.equals(savedMenu.getPrice(), menuDTO.price())
                 ));
 
     }
