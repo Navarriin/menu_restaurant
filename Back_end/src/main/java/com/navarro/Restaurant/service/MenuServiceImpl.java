@@ -4,10 +4,11 @@ import com.navarro.Restaurant.dto.MenuDTO;
 import com.navarro.Restaurant.dto.mapper.MenuMapper;
 import com.navarro.Restaurant.exceptions.MenuNotFoundException;
 import com.navarro.Restaurant.repository.MenuRepository;
+import org.aspectj.apache.bcel.generic.ObjectType;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +26,7 @@ public class MenuServiceImpl implements MenuService{
     public List<MenuDTO> listAll() {
         return menuRepository.findAll()
                 .stream().map(mapper::toDTO)
+                .sorted(Comparator.comparing(MenuDTO::id))
                 .collect(Collectors.toList());
     }
 
@@ -47,12 +49,12 @@ public class MenuServiceImpl implements MenuService{
                     data.setImage(body.image());
                     data.setPrice(body.price());
                     return mapper.toDTO(menuRepository.save(data));
-                }).orElseThrow(NoSuchElementException::new);
+                }).orElseThrow(() -> new MenuNotFoundException("Menu not found for id: " + id));
     }
 
     @Override
     public void delete(Long id) {
         menuRepository.delete(menuRepository.findById(id)
-                .orElseThrow(NoSuchElementException::new));
+                .orElseThrow(() -> new MenuNotFoundException("Menu not found for id: " + id)));
     }
 }

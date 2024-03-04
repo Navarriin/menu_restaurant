@@ -38,7 +38,7 @@ public class MenuController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<MenuDTO> create(@RequestBody MenuDTO body) {
         MenuDTO menuList = menuService.create(body);
-        return ResponseEntity.ok().body(menuList);
+        return ResponseEntity.status(HttpStatus.CREATED).body(menuList);
     }
 
     @Transactional

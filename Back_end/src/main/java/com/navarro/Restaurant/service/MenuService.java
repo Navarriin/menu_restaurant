@@ -11,5 +11,4 @@ public interface MenuService {
     MenuDTO create(MenuDTO menu);
     MenuDTO update(Long id, MenuDTO menu);
     void delete(Long id);
-
 }

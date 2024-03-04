@@ -17,7 +17,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 import java.util.Collections;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -120,9 +119,11 @@ class MenuServiceImplTest {
     void updateFoodError() {
         when(repository.findById(menuDTO.id())).thenReturn(Optional.empty());
 
-        assertThrows(NoSuchElementException.class, () -> menuService.update(menuDTO.id(), menuDTO));
+        var result = assertThrows(MenuNotFoundException.class, () -> menuService.update(menuDTO.id(), menuDTO));
+        assertEquals("Menu not found for id: 1", result.getMessage());
         verify(repository, times(1)).findById(menuDTO.id());
         verify(repository, never()).save(any());
+
     }
 
     @Test
@@ -137,7 +138,8 @@ class MenuServiceImplTest {
     void deleteFoodError() {
         when(repository.findById(anyLong())).thenReturn(Optional.empty());
 
-        assertThrows(NoSuchElementException.class, () -> menuService.delete(1L));
+        var result = assertThrows(MenuNotFoundException.class, () -> menuService.delete(1L));
+        assertEquals("Menu not found for id: 1", result.getMessage());
         verify(repository, Mockito.never()).delete(Mockito.any());
     }
 
