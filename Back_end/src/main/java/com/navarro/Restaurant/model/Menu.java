@@ -1,10 +1,7 @@
 package com.navarro.Restaurant.model;
 
 import jakarta.persistence.*;
-
-
 import java.math.BigDecimal;
-import java.util.Optional;
 
 @Entity
 @Table(name = "MENU")

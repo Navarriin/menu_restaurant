@@ -29,7 +29,7 @@ public class MenuController {
 
     @GetMapping("/{id}")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public ResponseEntity<MenuDTO> getFoodById(@PathVariable Long id) throws ChangeSetPersister.NotFoundException {
+    public ResponseEntity<MenuDTO> getFoodById(@PathVariable Long id){
         MenuDTO menuById = menuService.getById(id);
         return ResponseEntity.ok().body(menuById);
     }
