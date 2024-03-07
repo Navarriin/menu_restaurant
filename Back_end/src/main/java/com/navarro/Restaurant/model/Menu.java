@@ -1,6 +1,9 @@
 package com.navarro.Restaurant.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -10,11 +13,12 @@ public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotNull
+    @Size(max = 100)
     private String name;
 
     private String image;
-
+    @NotNull
     private BigDecimal price;
 
     public Menu() {}
@@ -56,15 +60,5 @@ public class Menu {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Menu{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", image='" + image + '\'' +
-                ", price=" + price +
-                '}';
     }
 }
